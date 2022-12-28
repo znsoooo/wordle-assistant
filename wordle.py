@@ -30,6 +30,7 @@ with open('words.txt') as f:
 
 top = tk.Tk()
 top.title('Wordle Assistant')
+top.resizable(0, 0)
 
 vars = []
 for i, name in enumerate(['Pattern', 'Include', 'Exclude']):
