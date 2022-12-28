@@ -17,16 +17,17 @@ def refresh(*v):
     patt = re.compile(s1, re.I)
 
     results = [w for w in words
-               if  all(c     in w.lower() for c in s2)
-               and all(c not in w.lower() for c in s3)
-               and patt.fullmatch(w)]
+               if      patt.fullmatch(w)
+               and     all(c in w.lower() for c in s2)
+               and not any(c in w.lower() for c in s3)]
 
     txt.delete('1.0', 'end')
     txt.insert('1.0', '\n'.join(results))
 
 
+patt = re.compile('[a-z]+', re.I)
 with open('words.txt') as f:
-    words = f.read().strip().split('\n')
+    words = [w for w in f.read().split('\n') if patt.fullmatch(w)]
 
 top = tk.Tk()
 top.title('Wordle Assistant')
